@@ -68,7 +68,7 @@ Balboa32U4Buzzer buzzer;
 Balboa32U4ButtonA buttonA;
 
 
-#define FIXED_ANGLE_CORRECTION (0.26)  // Replace the value 0.25 with the value you obtained from the Gyro calibration procedure
+#define FIXED_ANGLE_CORRECTION (0.23)  // Replace the value 0.25 with the value you obtained from the Gyro calibration procedure
 
 
 
@@ -86,13 +86,13 @@ void BalanceRocky()
 
     // Enter the control parameters here
     
-    float Kp = 0;
-    float Ki = 0;
+    float Kp = 1.9038 * pow(10,3);
+    float Ki = 1.3248* pow(10,4);
 
-    float Ci = 0;
+    float Ci = -680.3441;
     
-    float Jp = 0;
-    float Ji = 0;
+    float Jp = 85.7143;
+    float Ji = -1.4264* pow(10,3);
 
 
     float v_c_L, v_c_R; // these are the control velocities to be sent to the motors
@@ -313,4 +313,3 @@ if(cur_time - prev_print_time > 103)   // do the printing every 105 ms. Don't wa
 
  
 }
-

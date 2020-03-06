@@ -1,3 +1,5 @@
+clear
+
 syms s a b l g Kp Ki Jp Ji Ci  % define symbolic variables
 
 Hvtheta = -s/l/(s^2-g/l); % TF from velocity to angle of pendulum
@@ -26,11 +28,11 @@ Htot_subbed = subs(Htot); % substitutes parameters defined above into Htot
 
 % define the target poles
 
-p1 = 
-p2 = 
-p3 = 
-p4 = 
-p5 = 
+p1 = -0.5 + 2*pi*i;
+p2 = -0.5 - 2*pi*i;
+p3 = -14;
+p4 = -1;
+p5 = -1;
 
 % this is the target characteristic polynomial
 tgt_char_poly = (s-p1)*(s-p2)*(s-p3)*(s-p4)*(s-p5);
