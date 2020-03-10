@@ -3,5 +3,5 @@ t = transpose(t);
 %plot(data1)
 plot(t, VarName2, 'k')
 hold on
-plot(t, VarName1, 'r')
+%plot(t, VarName1, 'r')
 cftool
