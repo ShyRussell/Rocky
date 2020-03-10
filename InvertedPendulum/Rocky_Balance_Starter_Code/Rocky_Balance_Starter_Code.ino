@@ -68,7 +68,7 @@ Balboa32U4Buzzer buzzer;
 Balboa32U4ButtonA buttonA;
 
 
-#define FIXED_ANGLE_CORRECTION (0.23)  // Replace the value 0.25 with the value you obtained from the Gyro calibration procedure
+#define FIXED_ANGLE_CORRECTION (0.38)  // Replace the value 0.25 with the value you obtained from the Gyro calibration procedure
 
 
 
@@ -89,7 +89,7 @@ void BalanceRocky()
     float Kp = 1.8136 * pow(10,3);
     float Ki = 1.0869* pow(10,4);
 
-    float Ci = -1200;
+    float Ci = -1800;
     
     float Jp = 4.6225;
     float Ji = -1274.2;
@@ -99,7 +99,7 @@ void BalanceRocky()
     float v_d = 0; // this is the desired speed produced by the angle controller
 
 
-   // Variables available to you are: 
+   // Variables available to you are:
    // angle_rad  - angle in radians
    // angle_rad_accum - integral of angle
    // measured_speedR - right wheel speed (m/s)

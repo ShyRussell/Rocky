@@ -1,25 +1,38 @@
+clear
+
 syms s a b l g Kp Ki Jp Ji Ci  % define symbolic variables
 
-Htot = 0;  % place your transfer function here
+Hvtheta = -s/l/(s^2-g/l); % TF from velocity to angle of pendulum
+K = Kp + Ki/s;  % TF of the angle controller
+J = Jp + Ji/s + Ci/s^2; % TF of the controller around the motor
+M = a*b/(s+a)  % TF of motor
+Md = M/(1+M*J)  % TF of motor + feedback controller around it 
+                % J is applied on the feedback path
+
+pretty(collect(Md)) % display Md(s)
+
+Htot = 1/(1-Hvtheta*Md*K)  % this is the total transfer function from disturbance d(t) to \theta(t)
+
+pretty(simplify(Htot)) % display the total transfer function
 
 %% Substitute parameters and solve
 
 % system parameters
 g = 9.85;
-l = 22*2.54/100;
-l = 0.4217
-a = 14;
-b = 1/400;
+%l = 22*2.54/100;
+l = 0.4217;
+a = 16.76;
+b = .00309784;
 
 Htot_subbed = subs(Htot); % substitutes parameters defined above into Htot
 
 % define the target poles
 
-p1 = 
-p2 = 
-p3 = 
-p4 = 
-p5 = 
+p1 = -0.5 + 2*pi*i;
+p2 = -0.5 - 2*pi*i;
+p3 = -14;
+p4 = -1;
+p5 = -1;
 
 % this is the target characteristic polynomial
 tgt_char_poly = (s-p1)*(s-p2)*(s-p3)*(s-p4)*(s-p5);

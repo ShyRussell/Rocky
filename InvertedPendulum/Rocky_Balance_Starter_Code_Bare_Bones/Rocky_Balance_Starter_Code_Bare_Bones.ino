@@ -5,7 +5,7 @@
 // gently lift body of rocky to upright position
 // this will enable the balancing algorithm
 // wait for the buzzer
-// let go. If your control parameters were good for your robot, Rocky will balance
+// let go
 //
 // The balancing algorithm is implemented in BalanceRocky()
 // which you should modify to get the balancing to work
@@ -68,7 +68,7 @@ Balboa32U4Buzzer buzzer;
 Balboa32U4ButtonA buttonA;
 
 
-#define FIXED_ANGLE_CORRECTION (0.23)  // Replace the value 0.25 with the value you obtained from the Gyro calibration procedure
+#define FIXED_ANGLE_CORRECTION (0.38)  // Replace the value 0.25 with the value you obtained from the Gyro calibration procedure
 
 
 
@@ -79,28 +79,23 @@ Balboa32U4ButtonA buttonA;
 // It gets called approximately once every 10 ms  by the code in loop()
 // You should make modifications to this function to perform your
 // balancing
-//
-// You will need to implement your control algorithm here
-// which computes v_c_L and v_c_R, the control velocity on the right and left motors
-// 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 void BalanceRocky()
 {
 
     // Enter the control parameters here
-
-    float Kp = 0;
-    float Ki = 0;
-
-    float Ci = 0;
     
-    float Jp = 0;
-    float Ji = 0;
+    float Kp = 1283.4;
+    float Ki = 8930.7;
+
+    float Ci = -1100;
+    
+    float Jp = 4.6225;
+    float Ji = -961.5661;
 
 
-
-    float v_c_L = 0, v_c_R = 0; // these are the control velocities to be sent to the motors
+    float v_c_L, v_c_R; // these are the control velocities to be sent to the motors
     float v_d = 0; // this is the desired speed produced by the angle controller
 
 
@@ -114,6 +109,18 @@ void BalanceRocky()
    // dist_accum - integral of the distance
 
     
+    v_d = Kp*angle_rad + Ki*angle_rad_accum;  // this is the desired velocity from the angle controller 
+      
+
+  // The next two lines implement the feedback controller for the motor. Two separate velocities are calculated. 
+  //
+  //
+  // We use a trick here by criss-crossing the distance from left to right and 
+  // right to left. This helps ensure that the Left and Right motors are balanced
+   
+    v_c_R = v_d - Jp*measured_speedR - Ji*distLeft_m  - dist_accum*Ci;         
+    v_c_L = v_d - Jp*measured_speedL - Ji*distRight_m - dist_accum*Ci;         
+
     // save desired speed for debugging
     desSpeedL = v_c_L;
     desSpeedR = v_c_R;
@@ -127,6 +134,7 @@ void BalanceRocky()
    
     // Set the motor speeds
     motors.setSpeeds((int16_t) (v_c_L), (int16_t)(v_c_R));
+
 }
 
 
