@@ -89,7 +89,7 @@ void BalanceRocky()
     float Kp = 1.8136 * pow(10,3);
     float Ki = 1.0869* pow(10,4);
 
-    float Ci = -1800;
+    float Ci = -1000;
     
     float Jp = 4.6225;
     float Ji = -1274.2;

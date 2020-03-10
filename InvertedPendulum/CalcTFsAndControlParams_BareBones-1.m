@@ -19,8 +19,8 @@ pretty(simplify(Htot)) % display the total transfer function
 
 % system parameters
 g = 9.85;
-%l = 22*2.54/100;
-l = 0.4217;
+l = 22*2.54/100;
+%l = 0.4217;
 a = 16.76;
 b = .00309784;
 
