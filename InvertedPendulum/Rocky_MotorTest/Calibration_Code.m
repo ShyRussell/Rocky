@@ -4,3 +4,4 @@ t = transpose(t);
 plot(t, VarName2, 'k')
 hold on
 plot(t, VarName1, 'r')
+cftool
